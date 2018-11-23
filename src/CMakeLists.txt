@@ -79,6 +79,7 @@ include_directories(
     ${ZLIB_INCLUDE_DIR}
     ${PNG_PNG_INCLUDE_DIR}
     ${FREETYPE_INCLUDE_DIRS}
+    ${ASSIMP_INCLUDE_DIRS}
     ${CAIRO_INCLUDE_DIRS})
 
 if(Backtrace_FOUND)
@@ -217,6 +218,7 @@ target_link_libraries(solvespace-core
     ${util_LIBRARIES}
     ${ZLIB_LIBRARY}
     ${PNG_LIBRARY}
+    ${ASSIMP_LIBRARIES}
     ${FREETYPE_LIBRARY})
 
 if(Backtrace_FOUND)
