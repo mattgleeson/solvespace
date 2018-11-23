@@ -616,6 +616,8 @@ void SolveSpaceUI::MenuFile(Command id) {
                 ImportDxf(importFile);
             } else if(importFile.HasExtension("dwg")) {
                 ImportDwg(importFile);
+            } else if(importFile.HasExtension("stl")) {
+                ImportStl(importFile);
             } else {
                 Error(_("Can't identify file type from file extension of "
                         "filename '%s'; try .dxf or .dwg."), importFile.raw.c_str());

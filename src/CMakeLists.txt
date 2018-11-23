@@ -174,6 +174,7 @@ set(solvespace_core_SOURCES
     group.cpp
     groupmesh.cpp
     importdxf.cpp
+    importstl.cpp
     mesh.cpp
     modify.cpp
     mouse.cpp

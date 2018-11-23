@@ -816,6 +816,7 @@ public:
 
 void ImportDxf(const Platform::Path &file);
 void ImportDwg(const Platform::Path &file);
+void ImportStl(const Platform::Path &file);
 
 extern SolveSpaceUI SS;
 extern Sketch SK;
