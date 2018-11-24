@@ -22,6 +22,8 @@ static void addTriangle(Vector v1, Vector v2, Vector v3, Vector normal) {
 }
 
 static void LoadMesh(const aiMesh *mesh) {
+    Group::MenuGroup(Command::GROUP_3D, Platform::Path::From(""));
+
     // process each face in the mesh
     for (unsigned int i=0; i<mesh->mNumFaces; i++) {
         aiFace *face = &(mesh->mFaces[i]);
