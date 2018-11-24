@@ -5,7 +5,33 @@
 
 namespace SolveSpace {
 
-static void DoTheSceneProcessing(const aiScene *scene) {
+static Vector _v(aiVector3D *v) {
+    return Vector::From(v->x, v->y, v->z);
+}
+
+static void addLine(Vector start, Vector end) {
+    hRequest hr = SS.GW.AddRequest(Request::Type::LINE_SEGMENT, /*rememberForUndo=*/false);
+    SK.GetEntity(hr.entity(1))->PointForceTo(start);
+    SK.GetEntity(hr.entity(2))->PointForceTo(end);
+}
+
+static void addTriangle(Vector v1, Vector v2, Vector v3, Vector normal) {
+    addLine(v1, v2);
+    addLine(v2, v3);
+    addLine(v3, v1);
+}
+
+static void LoadMesh(const aiMesh *mesh) {
+    // process each face in the mesh
+    for (unsigned int i=0; i<mesh->mNumFaces; i++) {
+        aiFace *face = &(mesh->mFaces[i]);
+        aiVector3D *normal = &(mesh->mNormals[i]);
+        ssassert(face->mNumIndices == 3, "triangles only");
+        addTriangle(_v(&(mesh->mVertices[face->mIndices[0]])),
+                    _v(&(mesh->mVertices[face->mIndices[1]])),
+                    _v(&(mesh->mVertices[face->mIndices[2]])),
+                    _v(normal));
+    }
 }
 
 void ImportStl(const Platform::Path &filename) {
@@ -26,7 +52,7 @@ void ImportStl(const Platform::Path &filename) {
         return;
     }
     // Now we can access the file's contents.
-    DoTheSceneProcessing(scene);
+    LoadMesh(scene->mMeshes[0]);
     // We're done. Everything will be cleaned up by the importer destructor
 }
 
